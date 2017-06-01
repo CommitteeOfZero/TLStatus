@@ -1,5 +1,5 @@
 class Script < ApplicationRecord
-  belongs_to :project, dependent: :destroy
+  belongs_to :project
   
   validates :name, presence: true,
                    length: { maximum: 191 },

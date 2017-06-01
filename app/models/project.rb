@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
-  has_many :members, through: :project_memberships, class_name: 'User'
-  has_many :scripts
+  has_many :project_memberships, dependent: :destroy
+  has_many :scripts, dependent: :destroy
   
   validates :name, presence: true, length: { maximum: 191 }, uniqueness: true
   validates :language, presence: true, inclusion: { in: %w(nss) }
