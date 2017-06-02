@@ -6,12 +6,16 @@ class ApplicationController < ActionController::Base
   
 private
   def require_login
-    flash.keep
-    redirect_to login_path unless logged_in?
+    unless logged_in?
+      flash.keep
+      redirect_to login_path
+    end
   end
   
   def require_admin
-    flash.keep
-    redirect_to root_path unless current_user.admin?
+    unless current_user.admin?
+      flash.keep
+      redirect_to root_path
+    end
   end
 end
