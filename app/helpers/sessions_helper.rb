@@ -1,6 +1,8 @@
 module SessionsHelper
   def current_user
     @current_user ||= User.find_by(discord_uid: session[:discord_uid])
+    session.delete(:discord_uid) if @current_user.nil?
+    return @current_user
   end
   
   def logged_in?
