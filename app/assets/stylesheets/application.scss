@@ -20,6 +20,9 @@
 @import "bootstrap";
 @import "bootswatch/darkly/bootswatch";
 
+// Bootstrap body padding for fixed navbar
+body { padding-top: 60px; }
+
 .alert-notice {
   @extend .alert-success;
 }
