@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TLStatus</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
+  <style type="text/css">
+    body {
+      background: #222;
+      color: #dedede;
+      text-align: center;
+      padding-top: 8em;
+      font-size: 20pt;
+      font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    #error {
+      font-weight: bold;
+      font-size: 12pt;
+    }
+  </style>
+</head>
+<body>
+  <% unless flash[:notice].nil? %>
+    <p id="error"><%= flash[:notice] %></p>
+  <% end %>
+  Please <%= link_to "log in", "/auth/discord" %>.
+</body>
+</html>
