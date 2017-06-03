@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603014602) do
+ActiveRecord::Schema.define(version: 20170603025845) do
+
+  create_table "audits", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.integer "auditable_id"
+    t.string "auditable_type"
+    t.integer "associated_id"
+    t.string "associated_type"
+    t.integer "user_id"
+    t.string "user_type"
+    t.string "username"
+    t.string "action"
+    t.text "audited_changes"
+    t.integer "version", default: 0
+    t.string "comment"
+    t.string "remote_address"
+    t.string "request_uuid"
+    t.datetime "created_at"
+    t.index ["associated_id", "associated_type"], name: "associated_index", length: { associated_type: 191 }
+    t.index ["auditable_id", "auditable_type"], name: "auditable_index", length: { auditable_type: 191 }
+    t.index ["created_at"], name: "index_audits_on_created_at"
+    t.index ["request_uuid"], name: "index_audits_on_request_uuid", length: { request_uuid: 191 }
+    t.index ["user_id", "user_type"], name: "user_index", length: { user_type: 191 }
+  end
 
   create_table "project_memberships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.boolean "write_access", default: false

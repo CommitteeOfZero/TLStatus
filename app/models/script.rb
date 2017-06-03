@@ -1,6 +1,8 @@
 class Script < ApplicationRecord
   belongs_to :project
   
+  audited
+  
   validates :name, presence: true,
                    length: { maximum: 191 },
                    uniqueness: { scope: :project, case_sensitive: false }
