@@ -55,6 +55,15 @@ body { padding-top: 80px; }
   }
 }
 
+ul.panel_list {
+    list-style: none;
+    padding-left: 0;
+  li {
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+}
+
 /* Script editor */
 
 #script_editor {
@@ -80,17 +89,6 @@ body { padding-top: 80px; }
   }
 }
 
-#script_note_pane {
-  ul {
-    list-style: none;
-    padding-left: 0;
-  }
-  li {
-    padding: 8px;
-    margin-bottom: 8px;
-  }
-}
-
 .ace-twilight {
   .ace_tlstatus.ace_no-comment-code {
     color: #CF6A4C;
@@ -107,17 +105,30 @@ body { padding-top: 80px; }
   }
 }
 
+.diff_side {
+  h4 {
+    margin-top: 0;
+  }
+  
+  .diff{overflow:auto; background-color: #141414; border: 1px solid #808080; border-radius: 4px; padding: 8px;}
+.diff ul{overflow:auto;font-size:13px;list-style:none;margin:0;padding:0;display:table;width:100%;}
+.diff del, .diff ins{display:block;text-decoration:none;}
+.diff li{padding:0; display:table-row;margin: 0;height:1em;}
+.diff li.ins{background:#dfd; color:#080}
+.diff li.del{background:#fee; color:#b00}
+/* try 'whitespace:pre;' if you don't want lines to wrap */
+.diff del, .diff ins, .diff span{white-space:pre-wrap;font-family:'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;}
+.diff del strong{font-weight:normal;background:#fcc;}
+.diff ins strong{font-weight:normal;background:#9f9;}
+.diff li.diff-comment { display: none; }
+.diff li.diff-block-info { background: none repeat scroll 0 0 gray; }
+}
+
 /* Project show */
 
 #project_members {
-  ul {
-    list-style: none;
-    padding-left: 0;
-  }
   li {
-    padding: 8px;
     margin-right: 8px;
-    margin-bottom: 8px;
     width: 45%;
   }
 }

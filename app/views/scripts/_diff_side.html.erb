@@ -1,0 +1,24 @@
+<div class="col-md-6 diff_side">
+  <div class="row with_avatar">
+    <aside class="avatar">
+      <% if side[:audit].user.present? && side[:audit].user.avatar.present? %><%= image_tag side[:audit].user.avatar.url :thumb %><% end %>
+    </aside>
+    <section class="content">
+      <% if side[:audit].version == @script.revisions.count %>
+        <h4><%= link_to "Latest version",
+                             edit_script_path(@script) %></h4>
+      <% else %>
+        <h4><%= link_to "Version " + side[:audit].version.to_s,
+                             version_of_script_path(id: @script.id, version: side[:audit].version) %></h4>
+      <% end %>
+      <h5>Stage: <%= friendly_stage_names[side[:audit].revision.stage] %></h5>
+      <h5><em><%= side[:audit].created_at %></em></h5>
+      <% if side[:audit].user.present? %>
+        <h5>Edited by <%= link_to side[:audit].user.name, side[:audit].user %></h5>
+      <% end %>
+    </section>
+  </div>
+  <% unless side[:diff].blank? %>
+    <%= raw side[:diff] %>
+  <% end %>
+</div>

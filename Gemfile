@@ -42,6 +42,7 @@ gem 'omniauth', '~> 1.6.1'
 gem 'omniauth-discord', '~> 0.1.3'
 
 gem "audited", "~> 4.5"
+gem 'diffy', '~> 3.2'
 
 gem "rubyzip", "~> 1.2.1"
 

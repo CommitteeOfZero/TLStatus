@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   resources :users
   resources :project_memberships, only: [:create, :destroy]
   resources :scripts, only: [:edit, :update]
+  get '/scripts/:id/version/:version', to: 'scripts#version', as: :version_of_script
+  get '/scripts/:id/compare/:first..:second', to: 'scripts#compare', as: :diff_script
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

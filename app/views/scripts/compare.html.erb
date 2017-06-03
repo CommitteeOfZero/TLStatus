@@ -1,0 +1,6 @@
+<h3><%= @script.name %></h3>
+
+<div class="row">
+  <%= render "diff_side", side: { audit: @first, diff: @diff.left } %>
+  <%= render "diff_side", side: { audit: @second, diff: @diff.right } %>
+</div>

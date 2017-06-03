@@ -8,6 +8,24 @@ class ScriptsController < ApplicationController
   def edit
   end
 
+  def version
+    @audit = @script.audits[params[:version].to_i - 1]
+    @script = @audit.revision
+    @can_write = false
+    render :edit
+  end
+
+  def compare
+    @first = @script.audits[params[:first].to_i - 1]
+    @second = @script.audits[params[:second].to_i - 1]
+    @diff = Diffy::SplitDiff.new(@first.revision.text,
+                                 @second.revision.text,
+                                 format: :html,
+                                 context: 5,
+                                 include_plus_and_minus_in_html: true,
+                                 include_diff_info: true)
+  end
+
   def update
     if @script.update(script_params)
       redirect_to edit_script_path(@script), notice: 'Script was successfully updated.'

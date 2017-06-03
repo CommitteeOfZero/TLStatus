@@ -1,4 +1,8 @@
 <h3><%= @script.name %></h3>
+<% unless @audit.nil? %>
+  <h4>Version <%= @script.version %> (<%= @audit.created_at %>)</h4>
+  <h4><%= link_to "Back to current version", edit_script_path(@script) %></h4>
+<% end %>
 
 <div id="script_editor_row" class="row">
   <div id="script_editor_container">
@@ -14,12 +18,14 @@
           </ul>
         </div>
       <% end %>
-      <p class="btn-group">
-        <button id="increase_font_size" type="button" class="btn btn-default">Increase font size</button>
-        <button id="decrease_font_size" type="button" class="btn btn-default">Decrease font size</button>
-        <button id="add_note_before_line" type="button" class="btn btn-default">Add note before line</button>
-        <button id="toggle_note_pane" type="button" class="btn btn-default">Toggle note pane</button>
-      </p>
+      <% if @audit.nil? %>
+        <p class="btn-group">
+          <button id="increase_font_size" type="button" class="btn btn-default">Increase font size</button>
+          <button id="decrease_font_size" type="button" class="btn btn-default">Decrease font size</button>
+          <button id="add_note_before_line" type="button" class="btn btn-default">Add note before line</button>
+          <button id="toggle_note_pane" type="button" class="btn btn-default">Toggle note pane</button>
+        </p>
+      <% end %>
       <%= form.text_area :text, id: "script_hidden", style: "display: none"; %>
       <div id="script_editor"></div>
       <div class="form-group">
@@ -35,39 +41,42 @@
       <% if @can_write %><%= form.submit class: 'btn btn-primary' %><% end %>
     <% end %>
     </div>
-  <div id="script_note_pane">
-    <h3>Notes</h3>
-    <% if @script.cached_notes.any? %>
-      <ul>
-        <% @script.cached_notes.each do |note| %>
-          <li class="panel panel-default with_avatar">
-            <aside class="avatar">
-              <% if note.user.avatar.present? %><%= image_tag note.user.avatar.url :thumb %><% end %>
-            </aside>
-            <section class="content">
-              <p>
-                <strong><%= link_to note.user.name, note.user %></strong>
-                <br><em><%= note.added_at %></em>
-              </p>
-              <p>
-                <%= note.text %>
-              </p>
-              <p>
-                <%= link_to "Line #{note.line + 1}", "javascript:goToLine(#{note.line + 1});" %>
-              </p>
-            </section>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      none
-    <% end %>
-  </div>
+  <% if @audit.nil? %>
+    <div id="script_note_pane">
+      <h3>Notes</h3>
+      <% if @script.cached_notes.any? %>
+        <ul class="panel_list">
+          <% @script.cached_notes.each do |note| %>
+            <li class="panel panel-default with_avatar">
+              <aside class="avatar">
+                <% if note.user.avatar.present? %><%= image_tag note.user.avatar.url :thumb %><% end %>
+              </aside>
+              <section class="content">
+                <p>
+                  <strong><%= link_to note.user.name, note.user %></strong>
+                  <br><em><%= note.added_at %></em>
+                </p>
+                <p>
+                  <%= note.text %>
+                </p>
+                <p>
+                  <%= link_to "Line #{note.line + 1}", "javascript:goToLine(#{note.line + 1});" %>
+                </p>
+              </section>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        none
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <hr>
 
 <h3>Version history</h3>
+<div class="row"><%= render "version_history" %></div>
 
 <script>
   $(document).ready(function() {

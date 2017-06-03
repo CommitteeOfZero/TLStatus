@@ -8,7 +8,7 @@ class Script < ApplicationRecord
   
   after_save :update_note_cache
   
-  audited
+  audited associated_with: :project
   
   validates :name, presence: true,
                    length: { maximum: 191 },

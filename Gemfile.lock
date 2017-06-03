@@ -67,6 +67,7 @@ GEM
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     concurrent-ruby (1.0.5)
+    diffy (3.2.0)
     erubi (1.6.0)
     execjs (2.7.0)
     faraday (0.11.0)
@@ -214,6 +215,7 @@ DEPENDENCIES
   bootswatch-rails (~> 3.3.5)
   byebug
   capybara (~> 2.13)
+  diffy (~> 3.2)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3.1)
   jquery-ui-rails (~> 6.0.1)

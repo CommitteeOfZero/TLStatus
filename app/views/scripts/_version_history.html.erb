@@ -1,0 +1,32 @@
+<ul id="version_history" class="panel_list">
+  <% @script.audits.reverse.each do |audit| %>
+    <li class="panel panel-default with_avatar">
+      <aside class="avatar">
+        <% if audit.user.present? && audit.user.avatar.present? %><%= image_tag audit.user.avatar.url :thumb %><% end %>
+      </aside>
+      <section class="content">
+        <p>
+          <% if audit.version == @script.revisions.count %>
+            <strong><%= link_to "Latest version",
+                                 edit_script_path(@script) %></strong>
+          <% else %>
+            <strong><%= link_to "Version " + audit.version.to_s,
+                                 version_of_script_path(id: @script.id, version: audit.version) %></strong>
+          <% end %>
+          - Stage: <strong><%= friendly_stage_names[audit.revision.stage] %></strong>
+          <% unless audit.version == @script.version %>
+            <%= link_to "(diff)", diff_script_path(id: @script.id,
+                                                   first: audit.version,
+                                                   second: @script.version) %>
+          <% end %>
+          <br><em><%= audit.created_at %></em>
+        </p>
+        <% if audit.user.present? %>
+          <p>
+            Edited by <%= link_to audit.user.name, audit.user %>.
+          </p>
+        <% end %>
+      </section>
+    </li>
+  <% end %>
+</ul>
