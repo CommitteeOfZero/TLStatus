@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603162633) do
+ActiveRecord::Schema.define(version: 20170603170040) do
 
   create_table "audits", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.integer "auditable_id"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20170603162633) do
     t.index ["created_at"], name: "index_audits_on_created_at"
     t.index ["request_uuid"], name: "index_audits_on_request_uuid", length: { request_uuid: 191 }
     t.index ["user_id", "user_type"], name: "user_index", length: { user_type: 191 }
+  end
+
+  create_table "cached_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.bigint "user_id"
+    t.bigint "script_id"
+    t.text "text"
+    t.integer "line"
+    t.datetime "added_at"
+    t.index ["script_id"], name: "index_cached_notes_on_script_id"
+    t.index ["user_id"], name: "index_cached_notes_on_user_id"
   end
 
   create_table "project_memberships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
@@ -75,4 +85,6 @@ ActiveRecord::Schema.define(version: 20170603162633) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  add_foreign_key "cached_notes", "scripts"
+  add_foreign_key "cached_notes", "users"
 end

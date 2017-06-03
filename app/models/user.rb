@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :project_memberships, dependent: :destroy
+  has_many :cached_notes
   
   validates :name, presence: true, length: { maximum: 191 }, uniqueness: true
   validates :discord_uid, presence: true, length: { maximum: 20 }, uniqueness: true, numericality: true
