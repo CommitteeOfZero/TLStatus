@@ -28,7 +28,7 @@
     <% end %>
     <% if current_user.admin? %>
     <p class="clearfix"><hr>
-      <%= form_with(model: @membership, class: "form-horizontal") do |form| %>
+      <%= form_with(model: @membership, class: "form-horizontal", local: true) do |form| %>
         <%= form.hidden_field :project_id, value: @project.id %>
         <div class="form-group">
           <%= form.label :user_id, "User", class: "control-label col-xs-2" %>

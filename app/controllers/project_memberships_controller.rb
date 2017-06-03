@@ -5,16 +5,16 @@ class ProjectMembershipsController < ApplicationController
   def create
     @project_membership = ProjectMembership.new(membership_params)
     if @project_membership.save
-      redirect_to request.referer
+      redirect_to request.referer, notice: "Membership was successfully added."
     else
-      flash[:danger] = "Could not save project membership"
+      flash[:danger] = "Could not save project membership!"
       redirect_to request.referer
     end
   end
 
   def destroy
     @project_membership.destroy
-    redirect_to request.referer, notice: "Member was successfully removed."
+    redirect_to request.referer, notice: "Membership was successfully removed."
   end
   
 private
