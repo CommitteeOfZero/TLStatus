@@ -4,7 +4,8 @@
     <p>
       <strong>Language:</strong> <%= @project.language %>
       <br><strong>Total scripts:</strong> <%= @project.scripts.count %>
-      <br><%= link_to 'Edit', edit_project_path(@project) %> 
+      <br><%= link_to 'Edit', edit_project_path(@project) %>
+      <br><%= link_to 'Download ZIP', download_project_path(@project), class: 'btn btn-primary' %>
     </p>
   </section>
   <section class="col-md-6" id="project_members">

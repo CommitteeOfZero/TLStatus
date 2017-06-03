@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   root 'projects#index'
   resources :projects
+  get '/projects/:id/download', to: 'projects#download', as: :download_project
   resources :users
   resources :project_memberships, only: [:create, :destroy]
   resources :scripts, only: [:edit, :update]

@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :require_read_access, only: :show
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :download]
+  before_action :require_read_access, only: [:show, :download]
   
   # GET /projects
   # GET /projects.json
@@ -55,6 +55,19 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     redirect_to projects_url, notice: 'Project was successfully destroyed.'
+  end
+  
+  def download
+    time = Time.zone.now
+    buf = Zip::OutputStream.write_buffer do |zio|
+      zio.comment = "Generated #{time}"
+      @project.scripts.each do |script|
+        zio.put_next_entry script.name
+        zio.write script.text
+      end
+    end
+    buf.rewind
+    send_data buf.read, filename: "#{@project.name}_#{time.to_i}.zip"
   end
 
   private
