@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601024600) do
+ActiveRecord::Schema.define(version: 20170603014602) do
 
   create_table "project_memberships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.boolean "write_access", default: false
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20170601024600) do
 
   create_table "scripts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "name", limit: 191
-    t.text "text", null: false
+    t.text "text", limit: 16777215, null: false
     t.string "stage", default: "untouched", null: false
     t.bigint "project_id"
     t.datetime "created_at", null: false
