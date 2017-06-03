@@ -51,6 +51,17 @@ body { padding-top: 80px; }
   resize: vertical;
   font-size: 16px;
   line-height: 1.4em;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.script_editor_two_pane {
+  #script_editor_container {
+    @extend .col-sm-9;
+  }
+  #script_note_pane {
+    @extend .col-sm-3;
+  }
 }
 
 .ace-twilight {

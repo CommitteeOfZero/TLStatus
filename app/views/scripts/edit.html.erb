@@ -12,8 +12,21 @@
       </ul>
     </div>
   <% end %>
-  
-  <div id="script_editor"><%= @script.text %></div>
+
+  <div id="script_editor_row" class="row">
+    <div id="script_editor_container">
+      <p class="btn-group">
+        <button id="increase_font_size" type="button" class="btn btn-default">Increase font size</button>
+        <button id="decrease_font_size" type="button" class="btn btn-default">Decrease font size</button>
+        <button id="add_note_before_line" type="button" class="btn btn-default">Add note before line</button>
+        <button id="toggle_note_pane" type="button" class="btn btn-default">Toggle note pane</button>
+      </p>
+      <div id="script_editor"><%= @script.text %></div>
+    </div>
+    <div id="script_note_pane">
+      <h3>Notes</h3>
+    </div>
+  </div>
   <script>
     $(document).ready(function() {
       var editor = ace.edit("script_editor");
@@ -29,6 +42,33 @@
         resize: function(event, ui) {
           editor.resize();
         }
+      });
+      
+      $("#increase_font_size").click(function() {
+        var fontSize = parseInt($("#script_editor").css("font-size"));
+        fontSize = fontSize + 1 + "px";
+        $("#script_editor").css({'font-size':fontSize});
+      });
+      $("#decrease_font_size").click(function() {
+        var fontSize = parseInt($("#script_editor").css("font-size"));
+        fontSize = fontSize - 1 + "px";
+        $("#script_editor").css({'font-size':fontSize});
+      });
+      $("#add_note_before_line").click(function() {
+        curRow = editor.selection.getCursor().row + 1;
+        editor.gotoLine(curRow);
+        editor.splitLine();
+        
+        var note = "//note(";
+        note += "<%= current_user.name %>";
+        note += ", ";
+        note += new Date().toISOString();
+        note += "): ";
+        
+        editor.insert(note);
+      });
+      $("#toggle_note_pane").click(function() {
+        $("#script_editor_row").toggleClass("script_editor_two_pane");
       });
     });
   </script>
