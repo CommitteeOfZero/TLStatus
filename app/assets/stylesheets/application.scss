@@ -27,6 +27,17 @@ body { padding-top: 80px; }
   @extend .alert-success;
 }
 
+.dataTables_wrapper {
+  select {
+    margin: 8px;
+  }
+  
+  .paginate_button {
+    @extend .btn-sm;
+    padding: 0;
+  }
+}
+
 /* Project show */
 
 #project_members {
