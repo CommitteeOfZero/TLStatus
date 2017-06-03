@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create, :auth_failure]
+  skip_before_action :set_visible_projects
   
   def new
     redirect_to root_path and return if logged_in?

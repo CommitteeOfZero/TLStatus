@@ -6,11 +6,6 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    if current_user.admin?
-      @projects = Project.all
-    else
-      @projects = current_user.project_memberships.map { |m| m.project }
-    end
   end
 
   # GET /projects/1

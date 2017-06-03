@@ -11,7 +11,7 @@
     </thead>
   
     <tbody>
-      <% @projects.each do |project| %>
+      <% @visible_projects.each do |project| %>
         <tr>
           <td><strong><%= link_to project.name, project %></strong></td>
           <td><%= project.language %></td>
