@@ -26,3 +26,18 @@ body { padding-top: 80px; }
 .alert-notice {
   @extend .alert-success;
 }
+
+/* Project show */
+
+#project_members {
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  li {
+    padding: 8px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    width: 45%;
+  }
+}

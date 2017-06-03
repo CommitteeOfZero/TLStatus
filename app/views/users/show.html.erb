@@ -13,5 +13,55 @@
   <%= @user.admin %>
 </p>
 
+<section id="user_memberships">
+  <h2>Projects</h2>
+  <p>
+    <% if @user.project_memberships.any? %>
+      <ul>
+        <% @user.project_memberships.each do |membership| %>
+          <li>
+            <%= link_to membership.project.name, project_path(membership.project) %>
+            <% unless membership.position.blank? %>(<%= membership.position %>)<% end %>
+            <% unless membership.write_access? %>(read only)<% end %>
+            <% if current_user.admin? %>
+              (<%= link_to "edit", "#" %>)
+              (<%= link_to "remove", "#" %>)
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      none
+    <% end %>
+  </p>
+  <% if current_user.admin? %>
+    <p>
+      <%= form_with(model: @membership, class: "form-inline") do |form| %>
+        <%= form.hidden_field :user_id, value: @user.id %>
+        <div class="input-group">
+          <span class="input-group-addon">Project</span>
+          <%= form.collection_select :project_id, 
+                                      Project.where_user_is_not_member(@user),
+                                      :id,
+                                      :name,
+                                      {},
+                                      class: "form-control input-sm" %>
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">Position</span>
+          <%= form.text_field :position, class: "form-control input-sm" %>
+        </div>
+        <div class="checkbox">
+          <%= form.label :write_access do %>
+            <%= form.check_box :write_access %>
+            Write access?
+          <% end %>
+        </div>
+        <%= form.submit "Add to project", class: "btn btn-primary btn-sm" %>
+      <% end %>
+    </p>
+  <% end %>
+</section>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
