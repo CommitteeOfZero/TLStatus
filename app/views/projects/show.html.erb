@@ -1,10 +1,11 @@
+<% provide(:title, "Project #{@project.name}") %>
 <div class="row">
   <section class="col-md-6">
     <h3><%= @project.name %></h3>
     <p>
       <strong>Language:</strong> <%= @project.language %>
       <br><strong>Total scripts:</strong> <%= @project.scripts.count %>
-      <br><%= link_to 'Edit', edit_project_path(@project) %>
+      <% if current_user.admin? %><br><%= link_to 'Edit', edit_project_path(@project) %><% end %>
       <br><%= link_to 'Download ZIP', download_project_path(@project), class: 'btn btn-primary' %>
     </p>
   </section>
@@ -15,7 +16,7 @@
         <% @project.project_memberships.each do |membership| %>
           <li class="panel panel-default with_avatar col-md-5">
             <aside class="avatar">
-              <% if membership.user.avatar.present? %><%= image_tag membership.user.avatar.url :thumb %><% end %>
+              <%= avatar_for membership.user %>
             </aside>
             <section class="content">
               <strong><%= link_to membership.user.name, membership.user %></strong>
@@ -92,7 +93,7 @@
           <td><strong><%= link_to script.name, edit_script_path(script) %></strong></td>
           <td><%= friendly_stage_names[script.stage] %></td>
           <td><%= script.note_count %></td>
-          <td data-order="<%= script.updated_at.to_i %>"><%= script.updated_at %></td>
+          <td data-order="<%= script.updated_at.to_i %>"><%= display_time(script.updated_at) %></td>
         </tr>
       <% end %>
     </tbody>

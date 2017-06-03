@@ -140,3 +140,20 @@ ul.panel_list {
     width: 45%;
   }
 }
+
+#scripts_table {
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* User show */
+
+.user_profile {
+  h3 {
+    margin-top: 0;
+  }
+}

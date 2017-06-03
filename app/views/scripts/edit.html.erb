@@ -1,8 +1,11 @@
-<h3><%= @script.name %></h3>
-<% unless @audit.nil? %>
-  <h4>Version <%= @script.version %> (<%= @audit.created_at %>)</h4>
-  <h4><%= link_to "Back to current version", edit_script_path(@script) %></h4>
-<% end %>
+<% provide(:title, @script.name) %>
+<div class="row">
+  <h3><%= @script.name %></h3>
+  <% unless @audit.nil? %>
+    <h4>Version <%= @script.version %> (<%= @audit.created_at %>)</h4>
+    <h4><%= link_to "Back to current version", edit_script_path(@script) %></h4>
+  <% end %>
+</div>
 
 <div id="script_editor_row" class="row">
   <div id="script_editor_container">
@@ -49,12 +52,12 @@
           <% @script.cached_notes.each do |note| %>
             <li class="panel panel-default with_avatar">
               <aside class="avatar">
-                <% if note.user.avatar.present? %><%= image_tag note.user.avatar.url :thumb %><% end %>
+                <%= avatar_for note.user %>
               </aside>
               <section class="content">
                 <p>
                   <strong><%= link_to note.user.name, note.user %></strong>
-                  <br><em><%= note.added_at %></em>
+                  <br><em><%= display_time(note.added_at) %></em>
                 </p>
                 <p>
                   <%= note.text %>
@@ -75,8 +78,10 @@
 
 <hr>
 
-<h3>Version history</h3>
-<div class="row"><%= render "version_history" %></div>
+<div class="row">
+  <h3>Version history</h3>
+  <%= render "version_history" %>
+</div>
 
 <script>
   $(document).ready(function() {

@@ -1,6 +1,9 @@
-<h3>Editing Project</h3>
-
-<%= render 'form', project: @project %>
-
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+<% provide(:title, "Editing Project #{@project.name}") %>
+<div class="row">
+  <h3>Editing Project</h3>
+  
+  <%= render 'form', project: @project %>
+  
+  <%= link_to 'Show', @project %> |
+  <%= link_to 'Back', projects_path %>
+</div>

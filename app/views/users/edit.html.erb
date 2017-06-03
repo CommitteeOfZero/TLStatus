@@ -1,6 +1,9 @@
-<h3>Editing User</h3>
-
-<%= render 'form', user: @user %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<% provide(:title, "Editing User #{@user.name}") %>
+<div class="row">
+  <h3>Editing User</h3>
+  
+  <%= render 'form', user: @user %>
+  
+  <%= link_to 'Show', @user %> |
+  <%= link_to 'Back', users_path %>
+</div>

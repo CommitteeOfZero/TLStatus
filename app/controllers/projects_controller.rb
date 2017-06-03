@@ -50,13 +50,6 @@ class ProjectsController < ApplicationController
       render :edit
     end
   end
-
-  # DELETE /projects/1
-  # DELETE /projects/1.json
-  def destroy
-    @project.destroy
-    redirect_to projects_url, notice: 'Project was successfully destroyed.'
-  end
   
   def download
     time = Time.zone.now

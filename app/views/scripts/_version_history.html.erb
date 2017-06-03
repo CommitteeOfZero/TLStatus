@@ -2,7 +2,7 @@
   <% @script.audits.reverse.each do |audit| %>
     <li class="panel panel-default with_avatar">
       <aside class="avatar">
-        <% if audit.user.present? && audit.user.avatar.present? %><%= image_tag audit.user.avatar.url :thumb %><% end %>
+        <%= avatar_for audit.user %>
       </aside>
       <section class="content">
         <p>
@@ -19,7 +19,7 @@
                                                    first: audit.version,
                                                    second: @script.version || @script.revisions.count) %>
           <% end %>
-          <br><em><%= audit.created_at %></em>
+          <br><em><%= display_time(audit.created_at) %></em>
         </p>
         <% if audit.user.present? %>
           <p>

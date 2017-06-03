@@ -1,21 +1,24 @@
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Discord uid:</strong>
-  <%= @user.discord_uid %>
-</p>
-
-<p>
-  <strong>Admin:</strong>
-  <%= @user.admin %>
-</p>
+<% provide(:title, "User #{@user.name}") %>
+<section class="user_profile row with_avatar">
+  <aside class="avatar">
+    <%= avatar_for @user %>
+  </aside>
+  <section class="content">
+    <h3><%= @user.name %></h3>
+    <p>
+      <strong>Discord uid:</strong>
+      <%= @user.discord_uid %>
+    </p>
+    <p>
+      <strong>Admin:</strong>
+      <%= @user.admin %>
+    </p>
+  </section>
+</section>
 
 <hr>
 
-<section id="user_memberships">
+<section class="row" id="user_memberships">
   <h3>Projects</h3>
   <p>
     <% if @user.project_memberships.any? %>
@@ -80,5 +83,6 @@
     <% end %>
 </section>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="row">
+  <% if current_user.admin? %><%= link_to 'Edit', edit_user_path(@user) %><% end %>
+</div>

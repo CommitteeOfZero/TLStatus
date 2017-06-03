@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   root 'projects#index'
-  resources :projects
+  resources :projects, except: :destroy
   get '/projects/:id/download', to: 'projects#download', as: :download_project
   resources :users
   resources :project_memberships, only: [:create, :destroy]

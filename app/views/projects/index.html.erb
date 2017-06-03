@@ -1,25 +1,26 @@
-<h3>Projects</h3>
-
-<table width="100%" class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Language</th>
-      <th colspan="1"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @projects.each do |project| %>
+<% provide(:title, "Projects") %>
+<div class="row">
+  <h3>Projects</h3>
+  
+  <table width="100%" class="table">
+    <thead>
       <tr>
-        <td><strong><%= link_to project.name, project %></strong></td>
-        <td><%= project.language %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Language</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Project', new_project_path %>
+    </thead>
+  
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><strong><%= link_to project.name, project %></strong></td>
+          <td><%= project.language %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <br>
+  
+  <% if current_user.admin? %><%= link_to 'New Project', new_project_path %><% end %>
+</div>
