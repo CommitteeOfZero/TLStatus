@@ -6,13 +6,7 @@
       </aside>
       <section class="content">
         <p>
-          <% if audit.version == @script.revisions.count %>
-            <strong><%= link_to "Version #{audit.version} (latest version)",
-                                 edit_script_path(@script) %></strong>
-          <% else %>
-            <strong><%= link_to "Version " + audit.version.to_s,
-                                 version_of_script_path(id: @script.id, version: audit.version) %></strong>
-          <% end %>
+          <strong><%= link_to_script_version(audit) %></strong>
           - Stage: <strong><%= friendly_stage_names[audit.revision.stage] %></strong>
           <% unless audit.version == (@script.version || @script.revisions.count) %>
             <%= link_to "(diff)", diff_script_path(id: @script.id,

@@ -13,6 +13,10 @@ class ProjectsController < ApplicationController
   def show
     @scripts = @project.scripts.with_note_count
     @membership = ProjectMembership.new
+    @changes = @project.associated_audits.where(auditable_type: "Script", action: :update)
+                                         .order(created_at: :desc)
+                                         .paginate(page: params[:page],
+                                                   per_page: 10)
   end
 
   # GET /projects/new

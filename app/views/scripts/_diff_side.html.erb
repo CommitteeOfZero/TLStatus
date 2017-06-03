@@ -4,13 +4,7 @@
       <%= avatar_for side[:audit].user %>
     </aside>
     <section class="content">
-      <% if side[:audit].version == @script.revisions.count %>
-        <h4><%= link_to "Version #{side[:audit].version} (latest version)",
-                             edit_script_path(@script) %></h4>
-      <% else %>
-        <h4><%= link_to "Version " + side[:audit].version.to_s,
-                             version_of_script_path(id: @script.id, version: side[:audit].version) %></h4>
-      <% end %>
+      <h4><%= link_to_script_version(side[:audit]) %></h4>
       <h5>Stage: <%= friendly_stage_names[side[:audit].revision.stage] %></h5>
       <h5><em><%= display_time(side[:audit].created_at) %></em></h5>
       <% if side[:audit].user.present? %>

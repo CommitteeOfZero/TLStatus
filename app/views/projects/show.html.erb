@@ -112,4 +112,44 @@
 
 <div class="row">
   <h3>Recent changes</h3>
+  <% if @changes.any? %>
+    <ul class="panel_list">
+      <% @changes.each do |change| %>
+        <li class="panel panel-default with_avatar">
+          <aside class="avatar">
+            <%= avatar_for change.user %>
+          </aside>
+          <section class="content">
+            <p>
+              <em><%= display_time(change.created_at) %></em>
+              <% if change.user.present? %>
+                <br><strong><%= link_to change.user.name, change.user %></strong> updated
+                <strong><%= link_to change.auditable.name, edit_script_path(change.auditable) %></strong>
+              <% else %>
+                <br><strong><%= link_to change.auditable.name, edit_script_path(change.auditable) %></strong> was updated
+              <% end %>
+            </p>
+            <% if change.audited_changes.include? "stage" %>
+              <p>
+                <strong>Stage</strong> went from
+                <strong><%= change.audited_changes["stage"].first %></strong>
+                to <strong><%= change.audited_changes["stage"].second %></strong>
+              </p>
+            <% end %>
+            <p>
+              <strong><%= link_to_script_version(change) %></strong>
+              <% unless change.version == 1 %>
+                <%= link_to "(diff to previous)",
+                                    diff_script_path(id: change.auditable.id, first: change.version - 1, second: change.version) %>
+              <% end %>
+            </p>
+          </section>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    none
+  <% end %>
+  
+  <%= will_paginate @changes %>
 </div>

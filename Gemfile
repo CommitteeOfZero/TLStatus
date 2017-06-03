@@ -37,6 +37,7 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'bootswatch-rails', '~> 3.3.5'
 gem 'ace-rails-ap', '~> 4.1.2'
 gem 'jquery-ui-rails', '~> 6.0.1'
+gem 'bootstrap-will_paginate', '~> 1.0.0'
 
 gem 'omniauth', '~> 1.6.1'
 gem 'omniauth-discord', '~> 0.1.3'
