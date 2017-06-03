@@ -2,7 +2,7 @@
 
 <div id="script_editor_row" class="row">
   <div id="script_editor_container">
-    <%= form_with(model: @script, local: true) do |form| %>
+    <%= form_with(model: @script, local: true, id: "script_form") do |form| %>
       <% if @script.errors.any? %>
         <div class="alert alert-danger">
           <b><%= pluralize(@script.errors.count, "error") %> prohibited this script from being saved:</b>
@@ -20,7 +20,8 @@
         <button id="add_note_before_line" type="button" class="btn btn-default">Add note before line</button>
         <button id="toggle_note_pane" type="button" class="btn btn-default">Toggle note pane</button>
       </p>
-      <div id="script_editor"><%= @script.text %></div>
+      <%= form.text_area :text, id: "script_hidden", style: "display: none"; %>
+      <div id="script_editor"></div>
       <div class="form-group">
         <%= form.label :stage %>
         <%= form.collection_select :stage,
@@ -48,13 +49,17 @@
       showPrintMargin: false,
       <% unless @can_write %>readOnly: true,<% end %>
     });
+    editor.setValue($("#script_hidden").val());
+    editor.clearSelection();
     editor.getSession().setUseWrapMode(true);
     $("#script_editor").resizable({
       resize: function(event, ui) {
         editor.resize();
       }
     });
-    
+    $("#script_form").submit(function() {
+      $("#script_hidden").val(editor.getValue());
+    });
     $("#increase_font_size").click(function() {
       var fontSize = parseInt($("#script_editor").css("font-size"));
       fontSize = fontSize + 1 + "px";
