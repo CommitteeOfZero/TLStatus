@@ -39,6 +39,18 @@ body { padding-top: 80px; }
   }
 }
 
+.with_avatar {
+  .avatar {
+    width: 90px;
+    float: left;
+    height: 100%;
+  }
+  .content {
+    margin-left: 90px;
+    height: 100%;
+  }
+}
+
 /* Script editor */
 
 #script_editor {
@@ -72,16 +84,6 @@ body { padding-top: 80px; }
   li {
     padding: 8px;
     margin-bottom: 8px;
-      
-    .note_avatar {
-      width: 90px;
-      float: left;
-      height: 100%;
-    }
-    .note_content {
-      margin-left: 90px;
-      height: 100%;
-    }
   }
 }
 

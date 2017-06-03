@@ -40,11 +40,11 @@
     <% if @script.cached_notes.any? %>
       <ul>
         <% @script.cached_notes.each do |note| %>
-          <li class="panel panel-default" style="display: block;">
-            <aside class="note_avatar">
+          <li class="panel panel-default with_avatar">
+            <aside class="avatar">
               TODO
             </aside>
-            <section class="note_content">
+            <section class="content">
               <p>
                 <strong><%= link_to note.user.name, note.user %></strong>
                 <br><em><%= note.added_at %></em>

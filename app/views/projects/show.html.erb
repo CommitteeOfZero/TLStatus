@@ -13,13 +13,18 @@
     <% if @project.project_memberships.any? %>
       <ul>
         <% @project.project_memberships.each do |membership| %>
-          <li class="panel panel-default col-md-5">
-            <strong><%= link_to membership.user.name, membership.user %></strong>
-            <% unless membership.position.blank? %><br><em><%= membership.position %></em><% end %>
-            <% unless membership.write_access? %><br>(read only)<% end %>
-            <% if current_user.admin? %>
-              <br><%= link_to '(remove)', membership, method: :delete, data: { confirm: 'Are you sure?' } %>
-            <% end %>
+          <li class="panel panel-default with_avatar col-md-5">
+            <aside class="avatar">
+              TODO
+            </aside>
+            <section class="content">
+              <strong><%= link_to membership.user.name, membership.user %></strong>
+              <% unless membership.position.blank? %><br><em><%= membership.position %></em><% end %>
+              <% unless membership.write_access? %><br>(read only)<% end %>
+              <% if current_user.admin? %>
+                <br><%= link_to '(remove)', membership, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
+            </section>
           </li>
         <% end %>
       </ul>
