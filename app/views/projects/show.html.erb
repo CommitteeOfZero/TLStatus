@@ -18,8 +18,7 @@
             <% unless membership.position.blank? %><br><em><%= membership.position %></em><% end %>
             <% unless membership.write_access? %><br>(read only)<% end %>
             <% if current_user.admin? %>
-              <br><%= link_to "(edit)", edit_project_membership_path(membership) %>
-              <%= link_to '(remove)', membership, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <br><%= link_to '(remove)', membership, method: :delete, data: { confirm: 'Are you sure?' } %>
             <% end %>
           </li>
         <% end %>

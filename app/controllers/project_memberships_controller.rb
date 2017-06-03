@@ -1,6 +1,6 @@
 class ProjectMembershipsController < ApplicationController
   before_action :require_admin
-  before_action :set_project_membership, only: [:edit, :update, :destroy]
+  before_action :set_project_membership, only: [:destroy]
   
   def create
     @project_membership = ProjectMembership.new(membership_params)
@@ -9,17 +9,6 @@ class ProjectMembershipsController < ApplicationController
     else
       flash[:danger] = "Could not save project membership"
       redirect_to request.referer
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    if @project_membership.update(project_params)
-      redirect_to @project_membership.project, notice: 'Membership was successfully updated.'
-    else
-      render :edit
     end
   end
 
