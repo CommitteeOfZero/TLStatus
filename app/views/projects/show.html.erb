@@ -18,8 +18,8 @@
             <% unless membership.position.blank? %><br><em><%= membership.position %></em><% end %>
             <% unless membership.write_access? %><br>(read only)<% end %>
             <% if current_user.admin? %>
-              <br>(<%= link_to "edit", "#" %>)
-              (<%= link_to "remove", "#" %>)
+              <br><%= link_to "(edit)", edit_project_membership_path(membership) %>
+              <%= link_to '(remove)', membership, method: :delete, data: { confirm: 'Are you sure?' } %>
             <% end %>
           </li>
         <% end %>
@@ -30,6 +30,7 @@
     <% if current_user.admin? %>
     <p class="clearfix"><hr>
       <%= form_with(model: @membership, class: "form-horizontal") do |form| %>
+        <%= form.hidden_field :project_id, value: @project.id %>
         <div class="form-group">
           <%= form.label :user_id, "User", class: "control-label col-xs-2" %>
           <div class="col-xs-10">

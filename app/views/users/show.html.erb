@@ -35,32 +35,44 @@
     <% end %>
   </p>
   <% if current_user.admin? %>
-    <p>
-      <%= form_with(model: @membership, class: "form-inline") do |form| %>
+    <p class="clearfix"><hr>
+      <%= form_with(model: @membership, class: "form-horizontal") do |form| %>
         <%= form.hidden_field :user_id, value: @user.id %>
-        <div class="input-group">
-          <span class="input-group-addon">Project</span>
-          <%= form.collection_select :project_id, 
-                                      Project.where_user_is_not_member(@user),
-                                      :id,
-                                      :name,
-                                      {},
-                                      class: "form-control input-sm" %>
+        <div class="form-group">
+          <%= form.label :user_id, "User", class: "control-label col-xs-2" %>
+          <div class="col-xs-10">
+            <%= form.collection_select :project_id, 
+                                        Project.where_user_is_not_member(@user),
+                                        :id,
+                                        :name,
+                                        {},
+                                        class: "form-control input-sm" %>
+          </div>
         </div>
-        <div class="input-group">
-          <span class="input-group-addon">Position</span>
-          <%= form.text_field :position, class: "form-control input-sm" %>
+        <div class="form-group">
+          <%= form.label :position, class: "control-label col-xs-2" %>
+          <div class="col-xs-10">
+            <%= form.text_field :position, class: "form-control input-sm" %>
+          </div>
         </div>
-        <div class="checkbox">
-          <%= form.label :write_access do %>
-            <%= form.check_box :write_access %>
-            Write access?
-          <% end %>
+        <div class="form-group">
+          <div class="col-xs-offset-2 col-xs-10">
+            <div class="checkbox">
+              <%= form.label :write_access do %>
+                <%= form.check_box :write_access %>
+                Write access?
+              <% end %>
+            </div>
+          </div>
         </div>
-        <%= form.submit "Add to project", class: "btn btn-primary btn-sm" %>
+        <div class="form-group">
+          <div class="col-xs-offset-2 col-xs-10">
+             <%= form.submit "Add to project", class: "btn btn-primary btn-sm" %>
+          </div>
+        </div>
       <% end %>
-    </p>
-  <% end %>
+      </p>
+    <% end %>
 </section>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
