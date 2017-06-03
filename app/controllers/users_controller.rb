@@ -38,6 +38,11 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    # yeah I know this isn't ideal
+    # a lot of stuff here isn't
+    if params[:remove_avatar]
+      @user.avatar = nil
+    end
     if @user.update(user_params)
       redirect_to @user, notice: 'User was successfully updated.'
     else
@@ -60,6 +65,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :discord_uid, :admin)
+      params.require(:user).permit(:name, :discord_uid, :admin, :avatar)
     end
 end

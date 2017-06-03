@@ -15,7 +15,7 @@
         <% @project.project_memberships.each do |membership| %>
           <li class="panel panel-default with_avatar col-md-5">
             <aside class="avatar">
-              TODO
+              <% if membership.user.avatar.present? %><%= image_tag membership.user.avatar.url :thumb %><% end %>
             </aside>
             <section class="content">
               <strong><%= link_to membership.user.name, membership.user %></strong>

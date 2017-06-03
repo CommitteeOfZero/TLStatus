@@ -1,4 +1,4 @@
-<%= form_with(model: user, local: true) do |form| %>
+<%= form_with(model: user, local: true, html: { multipart: true }) do |form| %>
   <% if user.errors.any? %>
     <div class="alert alert-danger">
       <b><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</b>
@@ -26,6 +26,17 @@
       <%= form.check_box :admin, id: :user_admin %>
       Admin?
     <% end %>
+  </div>
+  
+  <div class="checkbox">
+    <%= label_tag :remove_avatar do |label| %>
+      <%= check_box_tag :remove_avatar %> Remove avatar?
+    <% end %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :avatar %>
+    <%= form.file_field :avatar %>
   </div>
 
   <%= form.submit class: 'btn btn-primary' %>

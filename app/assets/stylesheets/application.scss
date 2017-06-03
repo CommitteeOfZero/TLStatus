@@ -41,12 +41,16 @@ body { padding-top: 80px; }
 
 .with_avatar {
   .avatar {
-    width: 90px;
+    width: 82px;
     float: left;
     height: 100%;
+    margin-top: 4px;
+    img {
+      border-radius: 50%;
+    }
   }
   .content {
-    margin-left: 90px;
+    margin-left: 82px;
     height: 100%;
   }
 }

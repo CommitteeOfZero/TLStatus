@@ -42,7 +42,7 @@
         <% @script.cached_notes.each do |note| %>
           <li class="panel panel-default with_avatar">
             <aside class="avatar">
-              TODO
+              <% if note.user.avatar.present? %><%= image_tag note.user.avatar.url :thumb %><% end %>
             </aside>
             <section class="content">
               <p>
