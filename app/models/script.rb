@@ -1,6 +1,6 @@
 class Script < ApplicationRecord
   belongs_to :project
-  has_many :cached_notes
+  has_many :cached_notes, -> { order line: :asc }
   
   after_save :update_note_cache
   

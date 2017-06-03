@@ -37,8 +37,38 @@
     </div>
   <div id="script_note_pane">
     <h3>Notes</h3>
+    <% if @script.cached_notes.any? %>
+      <ul>
+        <% @script.cached_notes.each do |note| %>
+          <li class="panel panel-default" style="display: block;">
+            <aside class="note_avatar">
+              TODO
+            </aside>
+            <section class="note_content">
+              <p>
+                <strong><%= link_to note.user.name, note.user %></strong>
+                <br><em><%= note.added_at %></em>
+              </p>
+              <p>
+                <%= note.text %>
+              </p>
+              <p>
+                <%= link_to "Line #{note.line + 1}", "javascript:goToLine(#{note.line + 1});" %>
+              </p>
+            </section>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      none
+    <% end %>
   </div>
 </div>
+
+<hr>
+
+<h3>Version history</h3>
+
 <script>
   $(document).ready(function() {
     var editor = ace.edit("script_editor");
@@ -90,5 +120,9 @@
       $("#script_editor_row").toggleClass("script_editor_two_pane");
       editor.focus();
     });
+    window.goToLine = function(line) {
+      editor.gotoLine(line);
+      editor.focus();
+    };
   });
 </script>

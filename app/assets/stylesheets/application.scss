@@ -64,6 +64,27 @@ body { padding-top: 80px; }
   }
 }
 
+#script_note_pane {
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  li {
+    padding: 8px;
+    margin-bottom: 8px;
+      
+    .note_avatar {
+      width: 90px;
+      float: left;
+      height: 100%;
+    }
+    .note_content {
+      margin-left: 90px;
+      height: 100%;
+    }
+  }
+}
+
 .ace-twilight {
   .ace_tlstatus.ace_no-comment-code {
     color: #CF6A4C;
