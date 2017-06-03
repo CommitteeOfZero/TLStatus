@@ -84,7 +84,7 @@
       <% @project.scripts.each do |script| %>
         <tr>
           <td><strong><%= link_to script.name, edit_script_path(script) %></strong></td>
-          <td><%= friendly_stage_name(script.stage) %></td>
+          <td><%= friendly_stage_names[script.stage] %></td>
           <td>TODO</td>
           <td data-order="<%= script.updated_at.to_i %>"><%= script.updated_at %></td>
         </tr>

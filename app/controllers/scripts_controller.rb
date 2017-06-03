@@ -9,11 +9,20 @@ class ScriptsController < ApplicationController
   end
 
   def update
+    if @script.update(script_params)
+      redirect_to edit_script_path(@script), notice: 'Script was successfully updated.'
+    else
+      render :edit
+    end
   end
   
 private
   def set_script
     @script = Script.find(params[:id])
+  end
+  
+  def script_params
+    params.require(:script).permit(:text, :stage)
   end
   
   def get_permissions

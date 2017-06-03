@@ -1,6 +1,6 @@
 module ApplicationHelper
-  def friendly_stage_name(db_name)
-    table = {
+  def friendly_stage_names
+    {
       "untouched" => "Untouched",
       "translation" => "In translation",
       "tlc" => "TLC",
@@ -8,6 +8,5 @@ module ApplicationHelper
       "review" => "TL review",
       "finalised" => "Finalised"
     }
-    return table[db_name]
   end
 end

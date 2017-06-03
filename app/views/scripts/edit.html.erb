@@ -1,2 +1,32 @@
-<h1>Scripts#edit</h1>
-<p>Find me in app/views/scripts/edit.html.erb</p>
+<h3><%= @script.name %></h3>
+
+<%= form_with(model: @script, local: true) do |form| %>
+  <% if @script.errors.any? %>
+    <div class="alert alert-danger">
+      <b><%= pluralize(@script.errors.count, "error") %> prohibited this script from being saved:</b>
+
+      <ul>
+      <% @script.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :text %>
+    <%= form.text_area :text, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :stage %>
+    <%= form.collection_select :stage,
+                                friendly_stage_names,
+                                :first,
+                                :second,
+                                {},
+                                class: 'form-control' %>
+  </div>
+
+  <% if @can_write %><%= form.submit class: 'btn btn-primary' %><% end %>
+<% end %>
