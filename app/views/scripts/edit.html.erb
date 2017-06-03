@@ -64,11 +64,13 @@
       var fontSize = parseInt($("#script_editor").css("font-size"));
       fontSize = fontSize + 1 + "px";
       $("#script_editor").css({'font-size':fontSize});
+      editor.focus();
     });
     $("#decrease_font_size").click(function() {
       var fontSize = parseInt($("#script_editor").css("font-size"));
       fontSize = fontSize - 1 + "px";
       $("#script_editor").css({'font-size':fontSize});
+      editor.focus();
     });
     $("#add_note_before_line").click(function() {
       curRow = editor.selection.getCursor().row + 1;
@@ -82,9 +84,11 @@
       note += "): ";
       
       editor.insert(note);
+      editor.focus();
     });
     $("#toggle_note_pane").click(function() {
       $("#script_editor_row").toggleClass("script_editor_two_pane");
+      editor.focus();
     });
   });
 </script>
