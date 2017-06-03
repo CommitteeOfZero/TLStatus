@@ -22,11 +22,15 @@
       <ul>
         <% @user.project_memberships.each do |membership| %>
           <li>
-            <%= link_to membership.project.name, project_path(membership.project) %>
-            <% unless membership.position.blank? %>(<%= membership.position %>)<% end %>
-            <% unless membership.write_access? %>(read only)<% end %>
-            <% if current_user.admin? %>
-              <%= link_to '(remove)', membership, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% if current_user.can_read? membership.project %>
+              <%= link_to membership.project.name, project_path(membership.project) %>
+              <% unless membership.position.blank? %>(<%= membership.position %>)<% end %>
+              <% unless membership.write_access? %>(read only)<% end %>
+              <% if current_user.admin? %>
+                <%= link_to '(remove)', membership, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
+            <% else %>
+              [REDACTED]
             <% end %>
           </li>
         <% end %>
