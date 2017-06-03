@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @scripts = @project.scripts.with_note_count
     @membership = ProjectMembership.new
   end
 

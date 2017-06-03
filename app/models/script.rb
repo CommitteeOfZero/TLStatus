@@ -2,6 +2,10 @@ class Script < ApplicationRecord
   belongs_to :project
   has_many :cached_notes, -> { order line: :asc }
   
+  scope :with_note_count, -> { left_joins(:cached_notes)
+                               .group("scripts.id")
+                               .select("scripts.*, count(cached_notes.id) as note_count") }
+  
   after_save :update_note_cache
   
   audited
