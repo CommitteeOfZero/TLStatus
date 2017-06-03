@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get '/login', to: 'sessions#new'
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: 'sessions#auth_failure'
@@ -8,5 +9,6 @@ Rails.application.routes.draw do
   resources :projects
   resources :users
   resources :project_memberships, only: [:create, :destroy]
+  resources :scripts, only: [:edit, :update]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

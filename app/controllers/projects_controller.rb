@@ -1,11 +1,16 @@
 class ProjectsController < ApplicationController
   before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :require_read_access, only: :show
   
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    if current_user.admin?
+      @projects = Project.all
+    else
+      @projects = current_user.project_memberships.map { |m| m.project }
+    end
   end
 
   # GET /projects/1
@@ -72,5 +77,9 @@ class ProjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:name, :language)
+    end
+    
+    def require_read_access
+      redirect_to root_path unless current_user.can_read? @project
     end
 end

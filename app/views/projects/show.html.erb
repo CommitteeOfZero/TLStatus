@@ -84,7 +84,7 @@
     <tbody>
       <% @project.scripts.each do |script| %>
         <tr>
-          <td><strong><%= script.name %></strong></td>
+          <td><strong><%= link_to script.name, edit_script_path(script) %></strong></td>
           <td><%= friendly_stage_name(script.stage) %></td>
           <td>TODO</td>
           <td>TODO</td>
