@@ -12,11 +12,26 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="form-group">
-    <%= form.label :text %>
-    <%= form.text_area :text, class: 'form-control' %>
-  </div>
+  
+  <div id="script_editor"><%= @script.text %></div>
+  <script>
+    $(document).ready(function() {
+      var editor = ace.edit("script_editor");
+      editor.setTheme("ace/theme/twilight");
+      editor.getSession().setMode("ace/mode/tlstatus<%= @script.project.language.downcase %>");
+      editor.setOptions({
+        autoScrollEditorIntoView: true,
+        showPrintMargin: false,
+        <% unless @can_write %>readOnly: true,<% end %>
+      });
+      editor.getSession().setUseWrapMode(true);
+      $("#script_editor").resizable({
+        resize: function(event, ui) {
+          editor.resize();
+        }
+      });
+    });
+  </script>
   
   <div class="form-group">
     <%= form.label :stage %>

@@ -14,4 +14,9 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //require turbolinks
+//= require ace-rails-ap
+//= require ace/mode-tlstatusnss
+//= require jquery-ui/widgets/resizable
 //= require_tree .
+
+ace.config.setModuleUrl("ace/mode/tlstatusnss", "<%= asset_path 'ace/mode-tlstatusnss.js' %>");

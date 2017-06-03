@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require jquery-ui/resizable
  */
 
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
@@ -35,6 +36,36 @@ body { padding-top: 80px; }
   .paginate_button {
     @extend .btn-sm;
     padding: 0;
+  }
+}
+
+/* Script editor */
+
+#script_editor {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 500px;
+  border: 1px solid #808080;
+  border-radius: 4px;
+  resize: vertical;
+  font-size: 16px;
+  line-height: 1.4em;
+}
+
+.ace-twilight {
+  .ace_tlstatus.ace_no-comment-code {
+    color: #CF6A4C;
+  }
+  
+  .ace_tlstatus.ace_code {
+    font-style: italic;
+    color: #5F5A60;
+  }
+  
+  .ace_tlstatus.ace_note {
+    color: #CF6A4C;
+    font-weight: bold;
   }
 }
 
