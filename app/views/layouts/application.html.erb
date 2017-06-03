@@ -18,7 +18,7 @@
 
   <body <%= yield(:body_attributes) %>>
     <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+      <div class="container-fluid full_page_width">
         <div class="navbar-header">
           <%= link_to "TLStatus", root_path, class: "navbar-brand" %>
         </div>
@@ -38,7 +38,7 @@
       </div>
     </div>
     
-    <div class="container">
+    <div class="container-fluid full_page_width">
       <% if flash.any? %>
         <section id="alerts">
           <% flash.each do |type, message| %>

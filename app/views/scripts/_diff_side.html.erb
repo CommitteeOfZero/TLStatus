@@ -5,7 +5,7 @@
     </aside>
     <section class="content">
       <% if side[:audit].version == @script.revisions.count %>
-        <h4><%= link_to "Latest version",
+        <h4><%= link_to "Version #{side[:audit].version} (latest version)",
                              edit_script_path(@script) %></h4>
       <% else %>
         <h4><%= link_to "Version " + side[:audit].version.to_s,

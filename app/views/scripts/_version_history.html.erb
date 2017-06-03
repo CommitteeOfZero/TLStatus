@@ -7,23 +7,23 @@
       <section class="content">
         <p>
           <% if audit.version == @script.revisions.count %>
-            <strong><%= link_to "Latest version",
+            <strong><%= link_to "Version #{audit.version} (latest version)",
                                  edit_script_path(@script) %></strong>
           <% else %>
             <strong><%= link_to "Version " + audit.version.to_s,
                                  version_of_script_path(id: @script.id, version: audit.version) %></strong>
           <% end %>
           - Stage: <strong><%= friendly_stage_names[audit.revision.stage] %></strong>
-          <% unless audit.version == @script.version %>
+          <% unless audit.version == (@script.version || @script.revisions.count) %>
             <%= link_to "(diff)", diff_script_path(id: @script.id,
                                                    first: audit.version,
-                                                   second: @script.version) %>
+                                                   second: @script.version || @script.revisions.count) %>
           <% end %>
           <br><em><%= audit.created_at %></em>
         </p>
         <% if audit.user.present? %>
           <p>
-            Edited by <%= link_to audit.user.name, audit.user %>.
+            Edited by <%= link_to audit.user.name, audit.user %>
           </p>
         <% end %>
       </section>

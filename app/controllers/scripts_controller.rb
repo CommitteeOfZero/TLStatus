@@ -1,5 +1,6 @@
 class ScriptsController < ApplicationController
   before_action :set_script
+  before_action :load_audits, only: [:edit, :version]
   before_action :get_permissions
   # edit shows script as read-only without write access
   before_action :require_read_access
@@ -37,6 +38,10 @@ class ScriptsController < ApplicationController
 private
   def set_script
     @script = Script.find(params[:id])
+  end
+  
+  def load_audits
+    @script.audits.load
   end
   
   def script_params
