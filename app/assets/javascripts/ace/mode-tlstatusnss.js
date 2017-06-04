@@ -20,59 +20,77 @@ ace.define("ace/mode/tlstatusnss_highlight_rules", ["require", "exports", "modul
         },
         {
           defaultToken: 'tlstatus.code'
+        },
+        {
+          caseInsensitive: true
         }
       ],
       important_function_call: [{
-        token: 'tlstatus.no-comment-code',
-        regex: '(CreateText|SetBacklog)(\\s*)\\(',
-        push: [{
-            token: 'tlstatus.no-comment-code',
-            regex: '\\)',
-            next: 'pop'
-          }, {
-            include: 'no_comment_lparen'
-          },
-          {
-            defaultToken: 'tlstatus.no-comment-code'
-          }
-        ]
-      }],
+          token: 'tlstatus.no-comment-code',
+          regex: '(CreateText|SetBacklog)(\\s*)\\(',
+          push: [{
+              token: 'tlstatus.no-comment-code',
+              regex: '\\)',
+              next: 'pop'
+            }, {
+              include: 'no_comment_lparen'
+            },
+            {
+              defaultToken: 'tlstatus.no-comment-code'
+            }
+          ]
+        },
+        {
+          caseInsensitive: true
+        }
+      ],
       no_comment_lparen: [{
-        token: 'tlstatus.no-comment-code',
-        regex: '\\(',
-        push: [{
-            token: 'tlstatus.no-comment-code',
-            regex: '\\)',
-            next: 'pop'
-          },
-          {
-            include: 'no_comment_lparen'
-          },
-          {
-            defaultToken: 'tlstatus.no-comment-code'
-          }
-        ]
-      }],
+          token: 'tlstatus.no-comment-code',
+          regex: '\\(',
+          push: [{
+              token: 'tlstatus.no-comment-code',
+              regex: '\\)',
+              next: 'pop'
+            },
+            {
+              include: 'no_comment_lparen'
+            },
+            {
+              defaultToken: 'tlstatus.no-comment-code'
+            }
+          ]
+        },
+        {
+          caseInsensitive: true
+        }
+      ],
       comment: [{
           token: 'tlstatus.note',
-          regex: '\\/\\/note(.*)'
+          regex: '^\\/\\/note(.*)'
         },
         {
           token: 'comment.single-line',
-          regex: '\\/\\/(.*)'
+          regex: '(^|\\s+)\\/\\/(.*)'
+        },
+        {
+          caseInsensitive: true
         }
       ],
       block: [{
-        token: 'tlstatus.code',
-        regex: '{',
-        push: [{
           token: 'tlstatus.code',
-          regex: '}',
-          next: 'pop'
-        }, {
-          include: 'start'
-        }]
-      }],
+          regex: '{',
+          push: [{
+            token: 'tlstatus.code',
+            regex: '}',
+            next: 'pop'
+          }, {
+            include: 'start'
+          }]
+        },
+        {
+          caseInsensitive: true
+        }
+      ],
       tag: [{
           token: 'tlstatus.code',
           regex: '<PRE(.*?)>',
@@ -131,6 +149,9 @@ ace.define("ace/mode/tlstatusnss_highlight_rules", ["require", "exports", "modul
         {
           token: 'tlstatus.code',
           regex: '<(voice|k|br)(.*)>'
+        },
+        {
+          caseInsensitive: true
         }
       ],
       text: [{
@@ -148,6 +169,9 @@ ace.define("ace/mode/tlstatusnss_highlight_rules", ["require", "exports", "modul
         },
         {
           defaultToken: 'tlstatus.text'
+        },
+        {
+          caseInsensitive: true
         }
       ]
     };
