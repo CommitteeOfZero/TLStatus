@@ -29,12 +29,16 @@ private
     lines = text.split "\n"
     lines.each_with_index do |text, number|
       if text.start_with? "//note("
-        matches = text.scan(/^\/\/note\((.*),(\s*)(.+)\):(.*)/)
-        next if matches.count != 1 || matches[0].count != 4
-        cached_notes.create(user: User.find_by(name: matches[0][0]),
-                            added_at: Time.parse(matches[0][2]),
-                            line: number,
-                            text: matches[0][3].strip)
+        begin
+          matches = text.scan(/^\/\/note\((.*),(\s*)(.+)\):(.*)/)
+          next if matches.count != 1 || matches[0].count != 4
+          cached_notes.create(user: User.find_by(name: matches[0][0]),
+                              added_at: Time.parse(matches[0][2]),
+                              line: number,
+                              text: matches[0][3].strip)
+        rescue
+          # ignore this line
+        end
       end
     end
   end
