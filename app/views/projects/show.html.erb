@@ -6,7 +6,9 @@
       <strong>Language:</strong> <%= @project.language %>
       <br><strong>Total scripts:</strong> <%= @project.scripts.count %>
       <% if current_user.admin? %><br><%= link_to 'Edit', edit_project_path(@project) %><% end %>
-      <br><%= link_to 'Download ZIP', download_project_path(@project), class: 'btn btn-primary' %>
+      <br><%= link_to raw("#{glyphicon 'download-alt'} Download ZIP"),
+      download_project_path(@project),
+      class: 'btn btn-primary' %>
     </p>
   </section>
   <section class="col-md-6" id="project_members">

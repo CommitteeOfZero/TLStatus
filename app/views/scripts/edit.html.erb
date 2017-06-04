@@ -23,10 +23,10 @@
       <% end %>
       <% if @audit.nil? %>
         <p class="btn-group">
-          <button id="increase_font_size" type="button" class="btn btn-default">Increase font size</button>
-          <button id="decrease_font_size" type="button" class="btn btn-default">Decrease font size</button>
-          <button id="add_note_before_line" type="button" class="btn btn-default">Add note before line</button>
-          <button id="toggle_note_pane" type="button" class="btn btn-default">Toggle note pane</button>
+          <button id="increase_font_size" type="button" class="btn btn-default"><%= raw(glyphicon "plus") %>Increase font size</button>
+          <button id="decrease_font_size" type="button" class="btn btn-default"><%= raw(glyphicon "minus") %>Decrease font size</button>
+          <button id="add_note_before_line" type="button" class="btn btn-default"><%= raw(glyphicon "tag") %>Add note before line</button>
+          <button id="toggle_note_pane" type="button" class="btn btn-default"><%= raw(glyphicon "tags") %>Toggle note pane</button>
         </p>
       <% end %>
       <%= form.text_area :text, id: "script_hidden", style: "display: none"; %>
@@ -41,7 +41,12 @@
                                     class: 'form-control' %>
       </div>
     
-      <% if @can_write %><%= form.submit class: 'btn btn-primary' %><% end %>
+      <% if @can_write %>
+        <%= button_tag class: 'btn btn-primary' do %>
+          <%= raw(glyphicon "floppy-disk") %>
+          Save changes
+        <% end %>
+      <% end %>
     <% end %>
     </div>
   <% if @audit.nil? %>

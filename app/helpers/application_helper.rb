@@ -28,4 +28,8 @@ module ApplicationHelper
                       version_of_script_path(id: audit.auditable.id, version: audit.version)
     end
   end
+  
+  def glyphicon(name)
+    "<span class='glyphicon glyphicon-#{name}' aria-hidden='true'></span>"
+  end
 end
