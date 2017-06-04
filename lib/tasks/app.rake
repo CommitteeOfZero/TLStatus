@@ -7,7 +7,7 @@ namespace :app do
     Dir[args.glob].each do |entry|
       @project.scripts.create(name: File.basename(entry),
                               stage: "untouched",
-                              text: IO.binread(entry))
+                              text: File.read(entry, :encoding => "utf-8"))
     end
   end
 

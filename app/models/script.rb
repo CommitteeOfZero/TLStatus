@@ -6,6 +6,7 @@ class Script < ApplicationRecord
                                .group("scripts.id")
                                .select("scripts.*, count(cached_notes.id) as note_count") }
   
+  before_save :strip_carriage_returns
   after_save :update_note_cache
   
   audited associated_with: :project
@@ -18,6 +19,11 @@ class Script < ApplicationRecord
                     inclusion: { in: %w(untouched translation tlc editing review finalised) }
                     
 private
+  # These mess with diffs
+  def strip_carriage_returns
+    text.delete! "\r"
+  end
+  
   def update_note_cache
     cached_notes.destroy_all
     lines = text.split "\n"
