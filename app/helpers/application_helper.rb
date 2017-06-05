@@ -32,4 +32,20 @@ module ApplicationHelper
   def glyphicon(name)
     "<span class='glyphicon glyphicon-#{name}' aria-hidden='true'></span>"
   end
+  
+  def parsed_comment(audit)
+    return "" if audit.comment.blank?
+    if audit.version == audit.auditable.revisions.count
+      # gsub seems to break on an ActiveSupport::SafeBuffer, hence the to_str
+      str = h(audit.comment).to_str.gsub(/#(\d+)/) do
+        link_to "##{$1}", edit_script_path(audit.auditable) + "#line_#{$1}"
+      end
+    else
+      str = h(audit.comment).to_str.gsub(/#(\d+)/) do
+        link_to "##{$1}", version_of_script_path(id: audit.auditable.id,
+                                                 version: audit.version) + "#line_#{$1}"
+      end
+    end
+    return str.html_safe
+  end
 end

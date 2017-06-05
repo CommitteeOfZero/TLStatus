@@ -22,7 +22,7 @@
         <% end %>
         <% if audit.comment.present? %>
           <p>
-            <strong>Comment:</strong> <%= audit.comment %>
+            <strong>Comment:</strong> <%= parsed_comment(audit) %>
           </p>
         <% end %>
       </section>

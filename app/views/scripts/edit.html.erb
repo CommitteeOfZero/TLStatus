@@ -147,5 +147,14 @@
       editor.gotoLine(line);
       editor.focus();
     };
+    window.goToHash = function() {
+      if (window.location.hash.startsWith("#line_")) {
+        var line_number = parseInt(window.location.hash.slice(6));
+        window.goToLine(line_number);
+        window.location.hash = "";
+      }
+    };
+    window.goToHash();
+    $(window).bind('hashchange', goToHash);
   });
 </script>
