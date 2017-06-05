@@ -94,6 +94,7 @@
     editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/tlstatus<%= @script.project.language.downcase %>");
     editor.setOptions({
+      autoScrollEditorIntoView: true,
       showPrintMargin: false,
       <% unless @can_write %>readOnly: true,<% end %>
     });
