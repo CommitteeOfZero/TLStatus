@@ -14,9 +14,9 @@
   <section class="col-md-6" id="project_members">
     <h3>Members</h3>
     <% if @project.project_memberships.any? %>
-      <ul class="panel_list">
+      <ul class="panel_list clearfix">
         <% @project.project_memberships.each do |membership| %>
-          <li class="panel panel-default with_avatar col-md-5">
+          <li class="panel panel-default with_avatar col-md-5<%= membership.write_access? ? "" : " membership_read_only invisible" %>">
             <aside class="avatar">
               <%= avatar_for membership.user %>
             </aside>
@@ -34,8 +34,9 @@
     <% else %>
       none
     <% end %>
+    <p><%= link_to "toggle read only", "#", id: "toggle_read_only" %></p>
     <% if current_user.admin? %>
-    <p class="clearfix"><hr>
+      <p><hr>
       <%= form_with(model: @membership, class: "form-horizontal", local: true) do |form| %>
         <%= form.hidden_field :project_id, value: @project.id %>
         <div class="form-group">
@@ -101,14 +102,6 @@
     </tbody>
   </table>
 </div>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#scripts_table').DataTable({
-      "info": false,
-      "searching": false
-    });
-  });
-</script>
 
 <hr>
 
@@ -160,3 +153,17 @@
   
   <%= will_paginate @changes %>
 </div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#scripts_table').DataTable({
+      "info": false,
+      "searching": false
+    });
+    
+    $("#toggle_read_only").click(function() {
+      $(".membership_read_only").toggleClass("invisible");
+    });
+  });
+</script>
