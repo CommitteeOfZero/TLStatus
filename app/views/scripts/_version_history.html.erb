@@ -20,6 +20,11 @@
             Edited by <%= link_to audit.user.name, audit.user %>
           </p>
         <% end %>
+        <% if audit.comment.present? %>
+          <p>
+            <strong>Comment:</strong> <%= audit.comment %>
+          </p>
+        <% end %>
       </section>
     </li>
   <% end %>

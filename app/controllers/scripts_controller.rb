@@ -45,7 +45,7 @@ private
   end
   
   def script_params
-    params.require(:script).permit(:text, :stage)
+    params.require(:script).permit(:text, :stage, :audit_comment)
   end
   
   def get_permissions

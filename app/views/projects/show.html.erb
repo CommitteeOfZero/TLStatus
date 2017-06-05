@@ -138,6 +138,11 @@
                 to <strong><%= change.audited_changes["stage"].second %></strong>
               </p>
             <% end %>
+            <% if change.comment.present? %>
+              <p>
+                <strong>Comment:</strong> <%= change.comment %>
+              </p>
+            <% end %>
             <p>
               <strong><%= link_to_script_version(change) %></strong>
               <% unless change.version == 1 %>
