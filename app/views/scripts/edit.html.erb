@@ -72,7 +72,11 @@
                   <%= note.text %>
                 </p>
                 <p>
-                  <%= link_to "Line #{note.line + 1}", "javascript:goToLine(#{note.line + 1});" %>
+                  <% if note.link.present? %>
+                    <%= link_to "Go to line (originally #{note.line + 1})", "javascript:goToNote('#{note.link}');" %>
+                  <% else %>
+                    <%= link_to "Line #{note.line + 1}", "javascript:goToLine(#{note.line + 1});" %>
+                  <% end %>
                 </p>
               </section>
             </li>
@@ -134,6 +138,9 @@
       note += "<%= current_user.name %>";
       note += ", ";
       note += new Date().toISOString();
+      note += ", ";
+      // link
+      note += Math.random().toString(36).substr(2,6);
       note += "): ";
       
       editor.insert(note);
@@ -146,6 +153,15 @@
     window.goToLine = function(line) {
       editor.gotoLine(line);
       editor.focus();
+    };
+    window.goToNote = function(link) {
+      Range = require("ace/range").Range;
+      editor.find(link, {
+        start: new Range(0,0,0,0)
+      });
+      // clear selection
+      curRow = editor.selection.getCursor().row + 1;
+      editor.gotoLine(curRow);
     };
     window.goToHash = function() {
       if (window.location.hash.startsWith("#line_")) {

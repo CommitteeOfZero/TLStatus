@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603185919) do
+ActiveRecord::Schema.define(version: 20170605190715) do
 
   create_table "audits", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.integer "auditable_id"
@@ -38,8 +38,9 @@ ActiveRecord::Schema.define(version: 20170603185919) do
     t.bigint "user_id"
     t.bigint "script_id"
     t.text "text"
-    t.integer "line"
     t.datetime "added_at"
+    t.string "link"
+    t.integer "line"
     t.index ["script_id"], name: "index_cached_notes_on_script_id"
     t.index ["user_id"], name: "index_cached_notes_on_user_id"
   end
