@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= yield :title %> - TLStatus</title>
+    <title>
+      <% unless Rails.env.production? %>(DEVELOPMENT)<% end %>
+      <%= yield :title %>
+      - TLStatus
+    </title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -17,7 +21,7 @@
   </head>
 
   <body <%= yield(:body_attributes) %>>
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top<% unless Rails.env.production? %> navbar_development<% end %>">
       <div class="container-fluid full_page_width">
         <div class="navbar-header">
           <%= link_to "TLStatus", root_path, class: "navbar-brand" %>

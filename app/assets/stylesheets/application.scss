@@ -54,6 +54,10 @@ body {
   padding-right: 32px;
 }
 
+.navbar_development {
+  background: $alert-danger-bg;
+}
+
 .alert-notice {
   @extend .alert-success;
 }
