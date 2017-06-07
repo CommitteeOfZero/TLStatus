@@ -20,5 +20,7 @@ module Tlstatus
     config.generators do |g|
       g.javascript_engine :js
     end
+    
+    config.session_store :cookie_store, expire_after: 14.days
   end
 end
