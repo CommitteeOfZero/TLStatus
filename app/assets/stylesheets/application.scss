@@ -21,6 +21,21 @@
 @import "bootstrap";
 @import "bootswatch/darkly/bootswatch";
 
+@font-face {
+  font-family: 'tlstatus-icons';
+  src: font-url('tlstatus-icons.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon-hoppy:before { content: '\e800'; } /* '' */
+
+.tlstatus-icon { 
+  font-family: 'tlstatus-icons';
+  padding-right: 8px;
+  vertical-align: top;
+}
+
 body {
   // Bootstrap body padding for fixed navbar
   padding-top: 80px;
