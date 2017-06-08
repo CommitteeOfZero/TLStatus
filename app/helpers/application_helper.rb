@@ -37,15 +37,16 @@ module ApplicationHelper
     return "" if audit.comment.blank?
     if audit.version == audit.auditable.revisions.count
       # gsub seems to break on an ActiveSupport::SafeBuffer, hence the to_str
-      str = h(audit.comment).to_str.gsub(/#(\d+)/) do
+      str = h(audit.comment).to_str.gsub(/(?<!&)#(\d+)/) do
         link_to "##{$1}", edit_script_path(audit.auditable) + "#line_#{$1}"
       end
     else
-      str = h(audit.comment).to_str.gsub(/#(\d+)/) do
+      str = h(audit.comment).to_str.gsub(/(?<!&)#(\d+)/) do
         link_to "##{$1}", version_of_script_path(id: audit.auditable.id,
                                                  version: audit.version) + "#line_#{$1}"
       end
     end
+    str.gsub!(/\r?\n/, "<br>")
     return str.html_safe
   end
 end
