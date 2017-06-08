@@ -140,8 +140,8 @@
             <% if change.audited_changes.include? "stage" %>
               <p>
                 <strong>Stage</strong> went from
-                <strong><%= change.audited_changes["stage"].first %></strong>
-                to <strong><%= change.audited_changes["stage"].second %></strong>
+                <strong><%= friendly_stage_names[change.audited_changes["stage"].first] %></strong>
+                to <strong><%= friendly_stage_names[change.audited_changes["stage"].second] %></strong>
               </p>
             <% end %>
             <% if change.comment.present? %>
