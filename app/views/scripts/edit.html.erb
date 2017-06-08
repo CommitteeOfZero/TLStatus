@@ -27,6 +27,7 @@
           <button id="decrease_font_size" type="button" class="btn btn-default"><%= raw(glyphicon "minus") %>Decrease font size</button>
           <button id="add_note_before_line" type="button" class="btn btn-default"><%= raw(glyphicon "tag") %>Add note before line</button>
           <button id="toggle_note_pane" type="button" class="btn btn-default"><%= raw(glyphicon "tags") %>Toggle note pane</button>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#style_guide_modal"><%= raw(glyphicon "education") %>Style guide</button>
         </p>
       <% end %>
       <%= form.text_area :text, id: "script_hidden", style: "display: none"; %>
@@ -94,6 +95,20 @@
 <div class="row">
   <h3>Version history</h3>
   <%= render "version_history" %>
+</div>
+
+<div class="modal fade" id="style_guide_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%= @script.project.name %> Style Guide</h4>
+      </div>
+      <div class="modal-body">
+        <%= markdown(@script.project.style_guide) %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>

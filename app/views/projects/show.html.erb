@@ -20,9 +20,14 @@
           </div>
         <% end %>
       </p>
-      <p><%= link_to raw("#{glyphicon 'download-alt'} Download ZIP"),
-                     download_project_path(@project),
-                     class: 'btn btn-primary' %></p>
+      <p>
+        <%= link_to raw("#{glyphicon 'download-alt'} Download ZIP"),
+                        download_project_path(@project),
+                        class: 'btn btn-primary' %>
+        <%= link_to raw("#{glyphicon 'education'} Style Guide"),
+                        style_guide_path(@project),
+                        class: 'btn btn-primary' %>
+      </p>
     </p>
   </section>
   <section class="col-md-6" id="project_members">

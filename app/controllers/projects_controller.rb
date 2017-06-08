@@ -1,7 +1,8 @@
 class ProjectsController < ApplicationController
   before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :download, :style_guide, :update_style_guide]
   before_action :require_read_access, only: [:show, :download]
+  before_action :require_write_access, only: [:update_style_guide]
   
   # GET /projects
   # GET /projects.json
@@ -62,6 +63,17 @@ class ProjectsController < ApplicationController
     buf.rewind
     send_data buf.read, filename: "#{@project.name}_#{time.to_i}.zip"
   end
+  
+  def style_guide
+  end
+  
+  def update_style_guide
+    if @project.update(style_guide_params)
+      redirect_to style_guide_path(@project), notice: 'Style guide was successfully updated.'
+    else
+      render :style_guide
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -74,7 +86,15 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:name, :language)
     end
     
+    def style_guide_params
+      params.require(:project).permit(:style_guide)
+    end
+    
     def require_read_access
       redirect_to root_path unless current_user.can_read? @project
+    end
+    
+    def require_write_access
+      redirect_to root_path unless current_user.can_write? @project
     end
 end

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   root 'projects#index'
   resources :projects, except: :destroy
   get '/projects/:id/download', to: 'projects#download', as: :download_project
+  get '/projects/:id/style_guide', to: 'projects#style_guide', as: :style_guide
+  patch '/projects/:id/style_guide', to: 'projects#update_style_guide'
+  put '/projects/:id/style_guide', to: 'projects#update_style_guide'
   resources :users
   resources :project_memberships, only: [:create, :destroy]
   resources :scripts, only: [:edit, :update]

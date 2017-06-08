@@ -1,0 +1,19 @@
+<% provide(:title, "#{@project.name} Style Guide") %>
+<div class="row">
+  <h3><%= @project.name %> Style Guide</h3>
+  <% unless @project.style_guide.blank? %>
+    <hr>
+    <%= markdown(@project.style_guide) %>
+  <% end %>
+  
+  <% if current_user.can_write? @project %>
+    <hr>
+    <h3>Edit</h3>
+    <%= form_with(model: @project, local: true, url: style_guide_path(@project)) do |form| %>
+      <div class="form-group">
+        <%= form.text_area :style_guide, rows: 30, class: 'form-control', style: 'width: 100%' %>
+      </div>
+      <%= form.submit "Update style guide", class: 'btn btn-primary' %>
+    <% end %>
+  <% end %>
+</div>

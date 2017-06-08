@@ -49,4 +49,13 @@ module ApplicationHelper
     str.gsub!(/\r?\n/, "<br>")
     return str.html_safe
   end
+  
+  def markdown(text)
+    return "" if text.nil?
+    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(escape_html: true, safe_links_only: true, hard_wrap: true), 
+                                          tables: true, fenced_code_blocks: true,
+                                          autolink: true, strikethrough: true,
+                                          underline: true)
+    return @markdown.render(text).html_safe
+  end
 end
