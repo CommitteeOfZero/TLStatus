@@ -81,6 +81,19 @@
 
 <div class="row">
   <h3>Files</h3>
+  <p>
+    <label><input type="checkbox" id="check_only_with_notes" class="scripts_table_filter"> Only with notes</label>
+  </p>
+  <p>
+    <table width="100%">
+      <tr>
+        <td><label><input type="checkbox" id="check_all_stages" class="scripts_table_filter" checked> All</label></td>
+        <% friendly_stage_names.each_value do |stage| %>
+          <td><label><input type="checkbox" class="scripts_table_filter stages_checkbox" data-stage="<%= stage %>" checked> <%= stage %></label></td>
+        <% end %>
+      </tr>
+    </table>
+  </p>
   <table width="100%" class="table" id="scripts_table">
     <thead>
       <tr>
@@ -157,9 +170,30 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#scripts_table').DataTable({
-      "info": false,
-      "searching": false
+    var table = $('#scripts_table').DataTable({
+      "info": false
+    });
+    var lock = false;
+    $('.scripts_table_filter').change(function() {
+      if (!lock) table.draw();
+    });
+    $('#check_all_stages').change(function() {
+      lock = true;
+      $(".stages_checkbox").prop('checked', $(this).prop("checked"));
+      table.draw();
+      lock = false;
+    });
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+      if($("#check_only_with_notes")[0].checked && parseInt(data[2], 10) == 0) return false;
+      
+      var checked_stages = [];
+      $('.stages_checkbox').each(function() {
+        if($(this)[0].checked) checked_stages.push($(this).data('stage'));
+      });
+      console.log(checked_stages);
+      if(checked_stages.includes(data[1])) return true;
+    
+      return false;
     });
     
     $("#toggle_read_only").click(function() {
