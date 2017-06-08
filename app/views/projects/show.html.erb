@@ -4,11 +4,25 @@
     <h3><%= @project.name %></h3>
     <p>
       <strong>Language:</strong> <%= @project.language %>
-      <br><strong>Total scripts:</strong> <%= @project.scripts.count %>
+      <br><strong>Total scripts:</strong> <%= @project.scripts.size %>
       <% if current_user.admin? %><br><%= link_to 'Edit', edit_project_path(@project) %><% end %>
-      <br><%= link_to raw("#{glyphicon 'download-alt'} Download ZIP"),
-      download_project_path(@project),
-      class: 'btn btn-primary' %>
+      <p>
+        <h4>Completion counts</h4>
+        <p>These are cumulative (e.g. "TLC" includes all scripts that are <em>at least</em> in TLC stage)</p>
+        <% {'translation' => '',
+            'tlc' => ' progress-bar-info',
+            'editing' => ' progress-bar-success',
+            'review' => ' progress-bar-warning',
+            'finalised' => ' progress-bar-danger'}.each do |stage, cls| %>
+          <div class="row">
+            <div class="col-sm-3"><strong><%= friendly_stage_names[stage] %></strong>: <%= @project.completion_counts[stage] %> / <%= @project.scripts.size %></div>
+            <div class="col-sm-9"><div class="progress stage_progress"><div class="progress-bar<%= cls %>" style="width: <%= (@project.completion_counts[stage].to_f / @project.scripts.size) * 100 %>%"></div></div></div>
+          </div>
+        <% end %>
+      </p>
+      <p><%= link_to raw("#{glyphicon 'download-alt'} Download ZIP"),
+                     download_project_path(@project),
+                     class: 'btn btn-primary' %></p>
     </p>
   </section>
   <section class="col-md-6" id="project_members">

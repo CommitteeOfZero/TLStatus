@@ -11,4 +11,15 @@ class Project < ApplicationRecord
   def self.where_user_is_not_member(user)
     self.where(ProjectMembership.where('project_id = projects.id AND user_id = ?', user.id).exists.not)
   end
+  
+  def completion_counts
+    return @counts unless @counts.nil?
+    @counts = {}
+    @counts['finalised'] = scripts.where(stage: 'finalised').size
+    @counts['review'] = @counts['finalised'] + scripts.where(stage: 'review').size
+    @counts['editing'] = @counts['review'] + scripts.where(stage: 'editing').size
+    @counts['tlc'] = @counts['editing'] + scripts.where(stage: 'tlc').size
+    @counts['translation'] = @counts['tlc'] + scripts.where(stage: 'translation').size
+    return @counts
+  end
 end

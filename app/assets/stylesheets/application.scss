@@ -178,6 +178,12 @@ ul.panel_list {
   }
 }
 
+.stage_progress {
+  margin-top: 5px; // hack
+  margin-bottom: 0;
+  background: $panel-bg;
+}
+
 /* User show */
 
 .user_profile {
