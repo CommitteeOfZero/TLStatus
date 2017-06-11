@@ -163,6 +163,7 @@
     });
     $("#toggle_note_pane").click(function() {
       $("#script_editor_row").toggleClass("script_editor_two_pane");
+      editor.resize();
       editor.focus();
     });
     window.goToLine = function(line) {
