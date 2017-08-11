@@ -63,6 +63,10 @@ body {
   padding-right: 8px;
 }
 
+.panel {
+  word-break: break-word;
+}
+
 .dataTables_wrapper {
   select {
     margin: 8px;
@@ -91,8 +95,8 @@ body {
 }
 
 ul.panel_list {
-    list-style: none;
-    padding-left: 0;
+  list-style: none;
+  padding-left: 0;
   li {
     padding: 8px;
     margin-bottom: 8px;
