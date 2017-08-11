@@ -121,6 +121,10 @@ ul.panel_list {
   }
   #script_note_pane {
     @extend .col-sm-3;
+    .panel_list {
+      height: 650px;
+      overflow-y: scroll;
+    }
   }
 }
 
@@ -137,6 +141,10 @@ ul.panel_list {
   .ace_tlstatus.ace_note {
     color: #CF6A4C;
     font-weight: bold;
+  }
+  
+  .ace_comment {
+    color: #43929E;
   }
 }
 
