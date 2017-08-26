@@ -11,6 +11,17 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     
+    <style type="text/css">
+      body:before {
+        <% # if you notice this please don't spoil the surprise for everyone else %>
+        <% if Date.today.month == 9 && Date.today.day == 9 %>
+          background-image: url(<%= image_url('backgrounds/nine.png') %>);
+        <% else %>
+          background-image: url(<%= image_url('backgrounds/' + rand(1..10).to_s + '.png') %>);
+        <% end %>
+      }
+    </style>
+    
     <script type="text/javascript"
             src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"
             data-turbolinks-track="reload"></script>
@@ -24,7 +35,12 @@
     <div class="navbar navbar-default<% unless Rails.env.production? %> navbar_development<% end %>">
       <div class="container-fluid full_page_width">
         <div class="navbar-header">
-          <%= link_to "TLStatus", root_path, class: "navbar-brand" %>
+          <% # if you notice this please don't spoil the surprise for everyone else %>
+          <% if Date.today.month == 9 && Date.today.day == 9 %>
+            <%= link_to "Happy Cirno Day!", root_path, class: "navbar-brand" %>
+          <% else %>
+            <%= link_to "TLStatus", root_path, class: "navbar-brand" %>
+          <% end %>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">

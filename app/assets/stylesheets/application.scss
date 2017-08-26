@@ -38,6 +38,20 @@
 
 body {
   padding-bottom: 50px;
+  
+  &:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    right: 10px;
+    width: 100%;
+    opacity: .2;
+    height: 100%;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    filter: grayscale(25%);
+  }
 }
 
 .invisible {
@@ -65,6 +79,7 @@ body {
 
 .panel {
   word-break: break-word;
+  background-color: rgba(52, 52, 52, 0.7);
 }
 
 .dataTables_wrapper {
