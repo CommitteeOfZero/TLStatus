@@ -124,6 +124,7 @@
     editor.setValue($("#script_hidden").val());
     editor.clearSelection();
     editor.getSession().setUseWrapMode(true);
+    editor.getSession().setUndoManager(new ace.UndoManager()); // setValue is undoable otherwise
     $("#script_editor").resizable({
       resize: function(event, ui) {
         editor.resize();
@@ -188,9 +189,9 @@
     };
     window.goToHash();
     $(window).bind('hashchange', goToHash);
-    
+
     $(window).on('beforeunload', function() {
-      if (editor.session.getUndoManager().isClean()) return undefined;
+      if (!editor.getSession().getUndoManager().hasUndo()) return undefined;
       
       return "You have unsaved changes! Are you sure you want to leave?";
     });
