@@ -22,5 +22,12 @@ module Tlstatus
     end
     
     config.session_store :cookie_store, expire_after: 14.days
+
+    # TODO: change this to some async queue if too slow    
+    config.active_job.queue_adapter = :inline
+    
+    Rails.application.routes.default_url_options[:host] = ENV['TLSTATUS_HOST']
+    Rails.application.routes.default_url_options[:protocol] = 'https'
+    config.action_controller.asset_host = "https://" + ENV['TLSTATUS_HOST']
   end
 end
