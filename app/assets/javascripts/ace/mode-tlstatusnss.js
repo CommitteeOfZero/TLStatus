@@ -73,6 +73,13 @@ ace.define("ace/mode/tlstatusnss_highlight_rules", ["require", "exports", "modul
           regex: '(^|\\s+)\\/\\/(.*)'
         },
         {
+          include: 'multiline_comment'
+        },
+        {
+          caseInsensitive: true
+        }
+      ],
+      multiline_comment: [{ // yes, these are nestable in NSS
           token: 'comment.multiline',
           regex: '\\/\\*',
           push: [{
@@ -81,12 +88,10 @@ ace.define("ace/mode/tlstatusnss_highlight_rules", ["require", "exports", "modul
             next: 'pop'
           }, {
             defaultToken: 'comment.multiline'
+          }, {
+            include: 'multiline_comment'
           }]
-        },
-        {
-          caseInsensitive: true
-        }
-      ],
+      }],
       block: [{
           token: 'tlstatus.code',
           regex: '{',
