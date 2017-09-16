@@ -73,6 +73,17 @@ ace.define("ace/mode/tlstatusnss_highlight_rules", ["require", "exports", "modul
           regex: '(^|\\s+)\\/\\/(.*)'
         },
         {
+          token: 'comment.multiline',
+          regex: '\\/\\*',
+          push: [{
+            token: 'comment.multiline',
+            regex: '\\*\\/',
+            next: 'pop'
+          }, {
+            defaultToken: 'comment.multiline'
+          }]
+        },
+        {
           caseInsensitive: true
         }
       ],
