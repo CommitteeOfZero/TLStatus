@@ -188,5 +188,11 @@
     };
     window.goToHash();
     $(window).bind('hashchange', goToHash);
+    
+    $(window).on('beforeunload', function() {
+      if (editor.session.getUndoManager().isClean()) return undefined;
+      
+      return "You have unsaved changes! Are you sure you want to leave?";
+    });
   });
 </script>
