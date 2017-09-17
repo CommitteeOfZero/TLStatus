@@ -16,6 +16,12 @@ module Tlstatus
     # -- all .rb files in that directory are automatically loaded.
     
     config.force_ssl = true
+    config.ssl_options = {
+      redirect: {
+        # workaround for discord not supporting our cert
+        exclude: -> request { request.path =~ /^\/system\// }
+      }
+    }
     
     config.generators do |g|
       g.javascript_engine :js

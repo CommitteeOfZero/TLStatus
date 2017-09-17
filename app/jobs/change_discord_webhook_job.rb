@@ -29,10 +29,11 @@ class ChangeDiscordWebhookJob < ApplicationJob
     
     if change.user.avatar.present?
       avatar_url = URI.join(ActionController::Base.asset_host, change.user.avatar.url(:thumb))
+      avatar_url.scheme = "http" # discord doesn't recognise our cert
       embed[:thumbnail] = {
         url: avatar_url
       }
-      # this only works in prod because discord only reads from standard ports
+      # this only works in prod because discord is blegh about loading foreign images
     end
     
     if change.audited_changes.include? "stage"
