@@ -16,7 +16,6 @@ public
       title: "`#{change.auditable.name}` updated", # even though it's the title, discord will otherwise parse markdown in the name
       url: Rails.application.routes.url_helpers.edit_script_url(change.auditable),
       timestamp: change.created_at.iso8601,
-      color: colors[change.auditable.stage],
       author: {
         name: change.user.name
       },
@@ -37,6 +36,10 @@ public
         value: "changed from **#{ApplicationController.helpers.friendly_stage_names[change.audited_changes["stage"].first]}** to **#{ApplicationController.helpers.friendly_stage_names[change.audited_changes["stage"].second]}**",
         inline: true # I'm not sure what this does but it seems good to have
       }
+      # auditable state is still before update, thus we need to get audited_changes.second here
+      embed[:color] = colors[change.audited_changes["stage"].second]
+    else
+      embed[:color] = colors[change.auditable.stage]
     end
     
     if change.comment.present?
