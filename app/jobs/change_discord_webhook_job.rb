@@ -1,7 +1,12 @@
 class ChangeDiscordWebhookJob < ApplicationJob
   queue_as :default
 
-public
+  if Rails.env.production?
+    rescue_from(StandardError) do |e|
+      # not worth dealing with, really
+    end
+  end
+
   def perform(change)
     colors = {
       "untouched" => 0,
