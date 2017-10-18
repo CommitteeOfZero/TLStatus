@@ -13,9 +13,11 @@
     
     <style type="text/css">
       body:before {
-        <% # if you notice this please don't spoil the surprise for everyone else %>
         <% if Date.today.month == 9 && Date.today.day == 9 %>
           background-image: url(<%= image_url('backgrounds/nine.png') %>);
+        <% # TODO: configurable %>
+        <% elsif current_user.id == 15 %>
+          background-image: url(<%= image_url('backgrounds/8.png') %>);
         <% else %>
           background-image: url(<%= image_url('backgrounds/' + rand(1..10).to_s + '.png') %>);
         <% end %>
