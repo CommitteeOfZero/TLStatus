@@ -7,10 +7,12 @@ class ScriptsController < ApplicationController
   before_action :require_write_access, only: :update
   
   def edit
+    set_audit_comment
   end
 
   def version
     @audit = @script.audits[params[:version].to_i - 1]
+    set_audit_comment
     @script = @audit.revision
     @can_write = false
     render :edit
@@ -28,9 +30,15 @@ class ScriptsController < ApplicationController
   end
 
   def update
-    if @script.update(script_params)
+    set_audit_comment
+    # TODO: use validations
+    # TODO: support validation errors (update returns false) *and* outside exceptions
+    begin
+      @script.update(script_params)
       redirect_to edit_script_path(@script), notice: 'Script was successfully updated.'
-    else
+    rescue => e
+      flash[:danger] = "There was an error saving your changes. If this persists please save your work locally and contact an administrator."
+      logger.error e
       render :edit
     end
   end
@@ -46,6 +54,14 @@ private
   
   def script_params
     params.require(:script).permit(:text, :stage, :audit_comment)
+  end
+  
+  def set_audit_comment
+    if @audit.present?
+      @audit_comment = @audit.comment
+    elsif params[:script].present?
+      @audit_comment = params[:script][:audit_comment]
+    end
   end
   
   def get_permissions
