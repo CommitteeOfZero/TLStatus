@@ -8,10 +8,10 @@
         <p>
           <strong><%= link_to_script_version(audit) %></strong>
           - Stage: <strong><%= friendly_stage_names[audit.revision.stage] %></strong>
-          <% unless audit.version == (@script.version || @script.revisions.count) %>
+          <% unless audit.version == (@script.version || @script.audits.count) %>
             <%= link_to "(diff)", diff_script_path(id: @script.id,
                                                    first: audit.version,
-                                                   second: @script.version || @script.revisions.count) %>
+                                                   second: @script.version || @script.audits.count) %>
           <% end %>
           <br><em><%= display_time(audit.created_at) %></em>
         </p>
