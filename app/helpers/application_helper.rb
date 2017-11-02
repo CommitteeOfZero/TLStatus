@@ -20,7 +20,8 @@ module ApplicationHelper
   end
   
   def link_to_script_version(audit)
-    if audit.version == audit.auditable.revisions.count
+    # DO NOT use .revisions.count, it fetches every one
+    if audit.version == audit.auditable.audits.count
       return link_to "Version #{audit.version} (latest version)",
                      edit_script_path(audit.auditable)
     else
@@ -35,7 +36,7 @@ module ApplicationHelper
   
   def parsed_comment(audit)
     return "" if audit.comment.blank?
-    if audit.version == audit.auditable.revisions.count
+    if audit.version == audit.auditable.audits.count
       # gsub seems to break on an ActiveSupport::SafeBuffer, hence the to_str
       str = h(audit.comment).to_str.gsub(/(?<!&)#(\d+)/) do
         link_to "##{$1}", edit_script_path(audit.auditable) + "#line_#{$1}"
