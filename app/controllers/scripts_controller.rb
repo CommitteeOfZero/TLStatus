@@ -37,7 +37,7 @@ class ScriptsController < ApplicationController
       @script.update(script_params)
       redirect_to edit_script_path(@script), notice: 'Script was successfully updated.'
     rescue => e
-      flash[:danger] = "There was an error saving your changes. If this persists please save your work locally and contact an administrator."
+      flash.now[:danger] = "There was an error saving your changes. If this persists please save your work locally and contact an administrator."
       logger.error e
       render :edit
     end
