@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608224552) do
+ActiveRecord::Schema.define(version: 20171102010841) do
 
   create_table "audits", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.integer "auditable_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170608224552) do
     t.string "action"
     t.text "audited_changes", limit: 4294967295
     t.integer "version", default: 0
-    t.string "comment"
+    t.text "comment", limit: 16777215
     t.string "remote_address"
     t.string "request_uuid"
     t.datetime "created_at"
